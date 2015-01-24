@@ -1,0 +1,6 @@
+<resources>
+
+    <color name="black_overlay">#66000000</color>
+    <color name="good_line">#33b5e5</color>
+    <!--<color name="bad_line">#</color>-->
+</resources>
