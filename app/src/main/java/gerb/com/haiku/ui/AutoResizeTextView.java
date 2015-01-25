@@ -1,4 +1,4 @@
-package gerb.com.haiku;
+package gerb.com.haiku.ui;
 
 import android.content.Context;
 import android.text.Layout;

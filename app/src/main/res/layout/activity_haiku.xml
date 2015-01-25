@@ -12,15 +12,18 @@
         android:orientation="vertical"
         android:layout_gravity="center">
 
-        <gerb.com.haiku.AutoResizeTextView android:id="@+id/firstLine" android:layout_width="match_parent"
+        <gerb.com.haiku.ui.AutoResizeTextView
+            android:id="@+id/firstLine" android:layout_width="match_parent"
             android:layout_height="wrap_content" android:keepScreenOn="true" android:textColor="#33b5e5"
             android:textStyle="bold" android:textSize="50sp" android:gravity="center"/>
 
-        <gerb.com.haiku.AutoResizeTextView android:id="@+id/secondLine" android:layout_width="match_parent"
+        <gerb.com.haiku.ui.AutoResizeTextView
+            android:id="@+id/secondLine" android:layout_width="match_parent"
             android:layout_height="wrap_content" android:keepScreenOn="true" android:textColor="#33b5e5"
             android:textStyle="bold" android:textSize="50sp" android:gravity="center"/>
 
-        <gerb.com.haiku.AutoResizeTextView android:id="@+id/thirdLine" android:layout_width="match_parent"
+        <gerb.com.haiku.ui.AutoResizeTextView
+            android:id="@+id/thirdLine" android:layout_width="match_parent"
             android:layout_height="wrap_content" android:keepScreenOn="true" android:textColor="#33b5e5"
             android:textStyle="bold" android:textSize="50sp" android:gravity="center" />
 
