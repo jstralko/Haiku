@@ -6,6 +6,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Outline;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.speech.RecognizerIntent;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewOutlineProvider;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -75,14 +77,6 @@ public class HaikuActivity extends Activity {
         mSecondLine = (TextView)findViewById(R.id.secondLine);
         mThirdLine = (TextView)findViewById(R.id.thirdLine);
 
-        Button button = (Button)findViewById(R.id.dummy_button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                speak();
-            }
-        });
-
         // Set up an instance of SystemUiHider to control the system UI for
         // this activity.
         mSystemUiHider = SystemUiHider.getInstance(this, mFirstLine, HIDER_FLAGS);
@@ -137,17 +131,25 @@ public class HaikuActivity extends Activity {
             }
         });
 
+        View addButton = findViewById(R.id.add_button);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                speak();
+            }
+        });
+
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
-        findViewById(R.id.dummy_button).setOnTouchListener(mDelayHideTouchListener);
+        addButton.setOnTouchListener(mDelayHideTouchListener);
     }
 
     public void speak() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE,
                 getClass().getPackage().getName());
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak");
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Haiku");
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 1);
@@ -189,7 +191,6 @@ public class HaikuActivity extends Activity {
                                     || (lines == 2 && total >= 7)) {
                                 lines++;
                                 total = 0;
-                                Log.d(TAG, "new line detected!");
                             }
                         }
 
@@ -207,6 +208,8 @@ public class HaikuActivity extends Activity {
                             } else {
                                 mFirstLine.setTextColor(HaikuActivity.this.getResources().getColor(R.color.good_line));
                             }
+                        } else {
+                            mFirstLine.setText("");
                         }
                         if (haikuStates[1] != null) {
                             mSecondLine.setText(haikuStates[1].getLine());
@@ -216,6 +219,8 @@ public class HaikuActivity extends Activity {
                             } else {
                                 mSecondLine.setTextColor(HaikuActivity.this.getResources().getColor(R.color.good_line));
                             }
+                        } else {
+                            mSecondLine.setText("");
                         }
                         if (haikuStates[2] != null) {
                             mThirdLine.setText(haikuStates[2].getLine());
@@ -225,10 +230,12 @@ public class HaikuActivity extends Activity {
                             } else {
                                 mThirdLine.setTextColor(HaikuActivity.this.getResources().getColor(R.color.good_line));
                             }
+                        } else {
+                            mThirdLine.setText("");
                         }
 
                         if (validHaiku) {
-                            showToastMessage("This is a haiku, congrats");
+                            showToastMessage("This is a haiku, congrats!");
                         } else {
                             showToastMessage("This is not a valid haiku");
                         }
