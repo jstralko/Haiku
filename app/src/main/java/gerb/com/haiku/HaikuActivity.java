@@ -71,8 +71,6 @@ public class HaikuActivity extends Activity {
 
         setContentView(R.layout.activity_haiku);
 
-        final View controlsView = findViewById(R.id.fullscreen_content_controls);
-
         mFirstLine = (TextView)findViewById(R.id.firstLine);
         mSecondLine = (TextView)findViewById(R.id.secondLine);
         mThirdLine = (TextView)findViewById(R.id.thirdLine);
@@ -81,43 +79,6 @@ public class HaikuActivity extends Activity {
         // this activity.
         mSystemUiHider = SystemUiHider.getInstance(this, mFirstLine, HIDER_FLAGS);
         mSystemUiHider.setup();
-        mSystemUiHider
-                .setOnVisibilityChangeListener(new SystemUiHider.OnVisibilityChangeListener() {
-                    // Cached values.
-                    int mControlsHeight;
-                    int mShortAnimTime;
-
-                    @Override
-                    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
-                    public void onVisibilityChange(boolean visible) {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-                            // If the ViewPropertyAnimator API is available
-                            // (Honeycomb MR2 and later), use it to animate the
-                            // in-layout UI controls at the bottom of the
-                            // screen.
-                            if (mControlsHeight == 0) {
-                                mControlsHeight = controlsView.getHeight();
-                            }
-                            if (mShortAnimTime == 0) {
-                                mShortAnimTime = getResources().getInteger(
-                                        android.R.integer.config_shortAnimTime);
-                            }
-                            controlsView.animate()
-                                    .translationY(visible ? 0 : mControlsHeight)
-                                    .setDuration(mShortAnimTime);
-                        } else {
-                            // If the ViewPropertyAnimator APIs aren't
-                            // available, simply show or hide the in-layout UI
-                            // controls.
-                            controlsView.setVisibility(visible ? View.VISIBLE : View.GONE);
-                        }
-
-                        if (visible && AUTO_HIDE) {
-                            // Schedule a hide().
-                            delayedHide(AUTO_HIDE_DELAY_MILLIS);
-                        }
-                    }
-                });
 
         // Set up the user interaction to manually show or hide the system UI.
         mFirstLine.setOnClickListener(new View.OnClickListener() {
@@ -139,10 +100,13 @@ public class HaikuActivity extends Activity {
             }
         });
 
+        View saveButton = findViewById(R.id.save_button);
+
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
         addButton.setOnTouchListener(mDelayHideTouchListener);
+        saveButton.setOnTouchListener(mDelayHideTouchListener);
     }
 
     public void speak() {
@@ -203,7 +167,7 @@ public class HaikuActivity extends Activity {
                         if (haikuStates[0] != null) {
                             mFirstLine.setText(haikuStates[0].getLine());
                             if (!haikuStates[0].isGood()) {
-                                mFirstLine.setTextColor(Color.RED);
+                                mFirstLine.setTextColor(HaikuActivity.this.getResources().getColor(R.color.bad_line));
                                 validHaiku = false;
                             } else {
                                 mFirstLine.setTextColor(HaikuActivity.this.getResources().getColor(R.color.good_line));
@@ -214,7 +178,7 @@ public class HaikuActivity extends Activity {
                         if (haikuStates[1] != null) {
                             mSecondLine.setText(haikuStates[1].getLine());
                             if (!haikuStates[1].isGood()) {
-                                mSecondLine.setTextColor(Color.RED);
+                                mSecondLine.setTextColor(HaikuActivity.this.getResources().getColor(R.color.bad_line));
                                 validHaiku = false;
                             } else {
                                 mSecondLine.setTextColor(HaikuActivity.this.getResources().getColor(R.color.good_line));
@@ -225,7 +189,7 @@ public class HaikuActivity extends Activity {
                         if (haikuStates[2] != null) {
                             mThirdLine.setText(haikuStates[2].getLine());
                             if (!haikuStates[2].isGood()) {
-                                mThirdLine.setTextColor(Color.RED);
+                                mThirdLine.setTextColor(HaikuActivity.this.getResources().getColor(R.color.bad_line));
                                 validHaiku = false;
                             } else {
                                 mThirdLine.setTextColor(HaikuActivity.this.getResources().getColor(R.color.good_line));

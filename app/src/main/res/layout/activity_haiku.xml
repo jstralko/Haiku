@@ -39,25 +39,6 @@
             android:layout_width="@dimen/fab_size"
             android:layout_height="@dimen/fab_size"
             android:elevation="@dimen/fab_elevation"
-            android:layout_gravity="end|bottom"
-            android:background="@drawable/fab_background"
-            android:layout_marginBottom="@dimen/fab_margin"
-            android:layout_marginEnd="@dimen/fab_margin"
-            android:stateListAnimator="@animator/fab_anim">
-
-            <ImageView
-                android:layout_width="@dimen/fab_icon_size"
-                android:layout_height="@dimen/fab_icon_size"
-                android:src="@drawable/fab_save_icon"
-                android:layout_gravity="center"
-                android:duplicateParentState="true"/>
-         </gerb.com.haiku.ui.FloatingActionButton>
-
-        <gerb.com.haiku.ui.FloatingActionButton
-            android:id="@+id/save_button"
-            android:layout_width="@dimen/fab_size"
-            android:layout_height="@dimen/fab_size"
-            android:elevation="@dimen/fab_elevation"
             android:layout_gravity="start|bottom"
             android:background="@drawable/fab_background"
             android:layout_marginBottom="@dimen/fab_margin"
@@ -68,6 +49,25 @@
                 android:layout_width="@dimen/fab_icon_size"
                 android:layout_height="@dimen/fab_icon_size"
                 android:src="@drawable/fab_new_icon"
+                android:layout_gravity="center"
+                android:duplicateParentState="true"/>
+         </gerb.com.haiku.ui.FloatingActionButton>
+
+        <gerb.com.haiku.ui.FloatingActionButton
+            android:id="@+id/save_button"
+            android:layout_width="@dimen/fab_size"
+            android:layout_height="@dimen/fab_size"
+            android:elevation="@dimen/fab_elevation"
+            android:layout_gravity="end|bottom"
+            android:background="@drawable/fab_background"
+            android:layout_marginBottom="@dimen/fab_margin"
+            android:layout_marginEnd="@dimen/fab_margin"
+            android:stateListAnimator="@animator/fab_anim">
+
+            <ImageView
+                android:layout_width="@dimen/fab_icon_size"
+                android:layout_height="@dimen/fab_icon_size"
+                android:src="@drawable/fab_save_icon"
                 android:layout_gravity="center"
                 android:duplicateParentState="true"/>
         </gerb.com.haiku.ui.FloatingActionButton>
