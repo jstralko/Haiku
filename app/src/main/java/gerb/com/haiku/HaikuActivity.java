@@ -198,10 +198,12 @@ public class HaikuActivity extends Activity {
 
                     @Override
                     protected void onPostExecute(HaikuState[] haikuStates) {
+                        boolean validHaiku = true;
                         if (haikuStates[0] != null) {
                             mFirstLine.setText(haikuStates[0].getLine());
                             if (!haikuStates[0].isGood()) {
                                 mFirstLine.setTextColor(Color.RED);
+                                validHaiku = false;
                             } else {
                                 mFirstLine.setTextColor(HaikuActivity.this.getResources().getColor(R.color.good_line));
                             }
@@ -210,6 +212,7 @@ public class HaikuActivity extends Activity {
                             mSecondLine.setText(haikuStates[1].getLine());
                             if (!haikuStates[1].isGood()) {
                                 mSecondLine.setTextColor(Color.RED);
+                                validHaiku = false;
                             } else {
                                 mSecondLine.setTextColor(HaikuActivity.this.getResources().getColor(R.color.good_line));
                             }
@@ -218,9 +221,16 @@ public class HaikuActivity extends Activity {
                             mThirdLine.setText(haikuStates[2].getLine());
                             if (!haikuStates[2].isGood()) {
                                 mThirdLine.setTextColor(Color.RED);
+                                validHaiku = false;
                             } else {
                                 mThirdLine.setTextColor(HaikuActivity.this.getResources().getColor(R.color.good_line));
                             }
+                        }
+
+                        if (validHaiku) {
+                            showToastMessage("This is a haiku, congrats");
+                        } else {
+                            showToastMessage("This is not a valid haiku");
                         }
                     }
                 };
