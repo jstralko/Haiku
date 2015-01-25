@@ -34,12 +34,6 @@
     <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent"
         android:fitsSystemWindows="true" android:id="@+id/fullscreen_content_controls">
 
-        <!--<LinearLayout android:id="@+id/fullscreen_content_controls" style="?metaButtonBarStyle"-->
-            <!--android:layout_width="match_parent" android:layout_height="wrap_content"-->
-            <!--android:layout_gravity="bottom|center_horizontal"-->
-            <!--android:background="@color/black_overlay" android:orientation="horizontal"-->
-            <!--tools:ignore="UselessParent">-->
-
         <gerb.com.haiku.ui.FloatingActionButton
             android:id="@+id/add_button"
             android:layout_width="@dimen/fab_size"
@@ -54,16 +48,30 @@
             <ImageView
                 android:layout_width="@dimen/fab_icon_size"
                 android:layout_height="@dimen/fab_icon_size"
-                android:src="@drawable/fab_icon"
+                android:src="@drawable/fab_save_icon"
                 android:layout_gravity="center"
                 android:duplicateParentState="true"/>
-            </gerb.com.haiku.ui.FloatingActionButton>
+         </gerb.com.haiku.ui.FloatingActionButton>
 
-            <!--<Button android:id="@+id/dummy_button" style="?metaButtonBarButtonStyle"-->
-                <!--android:layout_width="0dp" android:layout_height="wrap_content"-->
-                <!--android:layout_weight="1" android:text="@string/speak" />-->
+        <gerb.com.haiku.ui.FloatingActionButton
+            android:id="@+id/save_button"
+            android:layout_width="@dimen/fab_size"
+            android:layout_height="@dimen/fab_size"
+            android:elevation="@dimen/fab_elevation"
+            android:layout_gravity="start|bottom"
+            android:background="@drawable/fab_background"
+            android:layout_marginBottom="@dimen/fab_margin"
+            android:layout_marginStart="@dimen/fab_margin"
+            android:stateListAnimator="@animator/fab_anim">
 
-        <!--</LinearLayout>-->
+            <ImageView
+                android:layout_width="@dimen/fab_icon_size"
+                android:layout_height="@dimen/fab_icon_size"
+                android:src="@drawable/fab_new_icon"
+                android:layout_gravity="center"
+                android:duplicateParentState="true"/>
+        </gerb.com.haiku.ui.FloatingActionButton>
+
     </FrameLayout>
 
 </FrameLayout>
