@@ -128,11 +128,11 @@ public class HaikuActivity extends Activity {
                 List<String> list = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                 String haiku = list.get(0);
 
-                AsyncTask<String, Void, HaikuState[]> task = new AsyncTask<String, Void, HaikuState[]>() {
+                AsyncTask<String, Void, List<HaikuState>> task = new AsyncTask<String, Void, List<HaikuState>>() {
                     @Override
-                    protected HaikuState[] doInBackground(String... params) {
+                    protected List<HaikuState> doInBackground(String... params) {
                         String haiku = params[0];
-                        HaikuState[] haikuParsedArray = new HaikuState[3];
+                        List<HaikuState> haikuParsedArray = new ArrayList<>();
                         int total = 0;
                         int lines = 1;
 
@@ -147,9 +147,9 @@ public class HaikuActivity extends Activity {
                             //DEBUGGING - remove once it is working. Probably never!
                             Log.d(TAG, String.format("%s:%d", word, count));
 
-                            if (haikuParsedArray[lines - 1] == null)
-                                haikuParsedArray[lines - 1] = new HaikuState(lines);
-                            haikuParsedArray[lines - 1].addWordToLine(word, count);
+                            if (haikuParsedArray.size() <= (lines - 1))
+                                haikuParsedArray.add(lines - 1,  new HaikuState(lines));
+                            haikuParsedArray.get(lines - 1).addWordToLine(word, count);
 
                             if (((lines == 1 || lines == 3) && total >= 5)
                                     || (lines == 2 && total >= 7)) {
@@ -162,11 +162,11 @@ public class HaikuActivity extends Activity {
                     }
 
                     @Override
-                    protected void onPostExecute(HaikuState[] haikuStates) {
+                    protected void onPostExecute(List<HaikuState> haikuStates) {
                         boolean validHaiku = true;
-                        if (haikuStates[0] != null) {
-                            mFirstLine.setText(haikuStates[0].getLine());
-                            if (!haikuStates[0].isGood()) {
+                        if (haikuStates.size() > 0) {
+                            mFirstLine.setText(haikuStates.get(0).getLine());
+                            if (!haikuStates.get(0).isGood()) {
                                 mFirstLine.setTextColor(HaikuActivity.this.getResources().getColor(R.color.bad_line));
                                 validHaiku = false;
                             } else {
@@ -175,9 +175,9 @@ public class HaikuActivity extends Activity {
                         } else {
                             mFirstLine.setText("");
                         }
-                        if (haikuStates[1] != null) {
-                            mSecondLine.setText(haikuStates[1].getLine());
-                            if (!haikuStates[1].isGood()) {
+                        if (haikuStates.size() > 1) {
+                            mSecondLine.setText(haikuStates.get(1).getLine());
+                            if (!haikuStates.get(1).isGood()) {
                                 mSecondLine.setTextColor(HaikuActivity.this.getResources().getColor(R.color.bad_line));
                                 validHaiku = false;
                             } else {
@@ -186,9 +186,9 @@ public class HaikuActivity extends Activity {
                         } else {
                             mSecondLine.setText("");
                         }
-                        if (haikuStates[2] != null) {
-                            mThirdLine.setText(haikuStates[2].getLine());
-                            if (!haikuStates[2].isGood()) {
+                        if (haikuStates.size() > 2) {
+                            mThirdLine.setText(haikuStates.get(2).getLine());
+                            if (!haikuStates.get(2).isGood()) {
                                 mThirdLine.setTextColor(HaikuActivity.this.getResources().getColor(R.color.bad_line));
                                 validHaiku = false;
                             } else {
